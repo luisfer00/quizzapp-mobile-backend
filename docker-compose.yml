@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  api-quizapp:
+    image: node:22-alpine
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://mongo-quizapp-db:27017/quizapp
+      - PORT=3000
+    volumes:
+      - ./:/app
+    depends_on:
+      - mongo-quizapp-db
+    networks:
+      - quizapp-network
+    command: npm run dev
+
+  mongo-quizapp-db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-quizapp:/data/db
+    networks:
+      - quizapp-network
+    # You can add environment variables for MongoDB if needed, e.g., for user/pass
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: youruser
+    #   MONGO_INITDB_ROOT_PASSWORD: yourpassword
+networks:
+  quizapp-network:
+    driver: bridge
+
+volumes:
+  mongo-quizapp: # Defines the named volume for MongoDB persistence 
