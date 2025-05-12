@@ -20,10 +20,10 @@ app.use('/api', userRoutes);
 app.use('/api', questionRoutes);
 
 // MongoDB Connection
-const mongoUri = process.env.MONGO_URI;
+const mongoUri = process.env.MONGODB_URI;
 
 if (!mongoUri) {
-  console.error('MONGO_URI is not defined in .env file');
+  console.error('MONGODB_URI is not defined in .env file');
   process.exit(1);
 }
 
