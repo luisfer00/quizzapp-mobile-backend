@@ -59,7 +59,13 @@ export const updateUserScore = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    user.totalScore += score; // Add current game score to total score
+    // Update totalScore only if the current game's score is higher
+    if (score > user.totalScore) {
+      user.totalScore = score;
+    }
+    // If the score is not higher, user.totalScore remains unchanged.
+    // We still save the user to update `updatedAt` timestamp if needed, 
+    // or you might decide to only save if totalScore actually changed.
     await user.save();
     res.status(200).json(user);
   } catch (error) {

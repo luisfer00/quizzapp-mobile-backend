@@ -8,7 +8,7 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=development
-      - MONGODB_URI=mongodb://mongo-quizapp-db:27017/quizapp
+      - MONGODB_URI=mongodb+srv://luisfer220900:drgbedsragbedb@cluster0.w5eazyw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       - PORT=3000
     volumes:
       - ./:/app
